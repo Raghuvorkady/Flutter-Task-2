@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:task2/FetchModel.dart';
-import 'package:task2/Widgets.dart';
-import 'package:task2/home_page.dart';
+import 'package:task2/DatabaseList.dart';
 
 void main() {
   runApp(MyApp());
@@ -37,6 +36,9 @@ class _HomePageState extends State<HomePage> {
   List dataItemList = [];
   bool isLoading = false;
 
+  BuildContext scaffoldContext;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   void initState() {
     super.initState();
@@ -44,13 +46,29 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    scaffoldContext = context;
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: Text(widget.title),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.open_in_new),
+            tooltip: 'Open DB',
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => DatabaseList()));
+            },
+          ), //IconButton
+        ], //<Widget>[]
       ),
       body: getBody(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          _scaffoldKey.currentState.showSnackBar(SnackBar(
+            content: Text('fetching ...'),
+            duration: Duration(seconds: 1),
+          ));
           Provider.of<FetchModel>(context).retrieveData();
         },
         tooltip: 'Fetch',

@@ -23,7 +23,7 @@ class FetchModel extends ChangeNotifier {
 
       UserModel userModel =
           UserModel(items['displayName'], items['meta'], items['description']);
-      var res = databaseHelper.insertNote(userModel);
+      var res = databaseHelper.insertUserModal(userModel);
       print("DB: $res");
     } else {
       dataItemList = [];

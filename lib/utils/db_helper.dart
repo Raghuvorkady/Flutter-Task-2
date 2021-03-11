@@ -64,29 +64,29 @@ class DatabaseHelper {
     return await db.query(userModelTable);
   }
 
-  Future<int> insertNote(UserModel userModel) async {
+  Future<int> insertUserModal(UserModel userModel) async {
     Database db = await this.database;
     var result = await db.insert(userModelTable, userModel.toMap());
     return result;
   }
 
-  // Update Operation: Update a Note object and save it to database
-  Future<int> updateNote(UserModel userModel) async {
+  // Update Operation: Update a UserModal  object and save it to database
+  Future<int> updateUserModal(UserModel userModel) async {
     var db = await this.database;
     var result = await db.update(userModelTable, userModel.toMap(),
         where: '$colId = ?', whereArgs: [userModel.id]);
     return result;
   }
 
-  // Delete Operation: Delete a Note object from database
-  Future<int> deleteNote(int id) async {
+  // Delete Operation: Delete a UserModal  object from database
+  Future<int> deleteUserModal(int id) async {
     var db = await this.database;
     int result =
         await db.rawDelete('DELETE FROM $userModelTable WHERE $colId = $id');
     return result;
   }
 
-  // Get number of Note objects in database
+  // Get number of UserModal  objects in database
   Future<int> getCount() async {
     Database db = await this.database;
     List<Map<String, dynamic>> x =
@@ -95,15 +95,15 @@ class DatabaseHelper {
     return result;
   }
 
-  // Get the 'Map List' [ List<Map> ] and convert it to 'Note List' [ List<Note> ]
-  Future<List<UserModel>> getNoteList() async {
+  // Get the 'Map List' [ List<Map> ] and convert it to 'UserModal  List' [ List<UserModal > ]
+  Future<List<UserModel>> getUserModalList() async {
     var noteMapList =
         await getUserModelMapList(); // Get 'Map List' from database
     int count =
         noteMapList.length; // Count the number of map entries in db table
 
     List<UserModel> noteList = List<UserModel>();
-    // For loop to create a 'Note List' from a 'Map List'
+    // For loop to create a 'UserModal  List' from a 'Map List'
     for (int i = 0; i < count; i++) {
       noteList.add(UserModel.fromMapObject(noteMapList[i]));
     }

@@ -11,9 +11,9 @@ class UserModel {
     if (id != null) {
       map['id'] = id;
     }
-    map['displayName'] = displayName;
-    map['description'] = description;
-    map['meta'] = meta;
+    map['displayName'] = displayName ?? "NULL";
+    map['description'] = description ?? "NULL";
+    map['meta'] = meta ?? "NULL";
 
     return map;
   }
